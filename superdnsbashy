@@ -27,6 +27,6 @@ echo "enter an IP for OS discovery and port scan with nmap "
 read -p 'IP address ' ip
 for INPUT in $ip
 do
-        nmap -Pn -sS -f -O $ip 
+        nmap -Pn -sS -sU -f -O $ip 
 done
         echo "finished"
