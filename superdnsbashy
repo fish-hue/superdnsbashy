@@ -1,0 +1,32 @@
+/bin/bash
+
+#for fun testing
+
+echo "HOST DNS RECON"
+read -p 'Hostname ' hostvar
+for INPUT in $hostvar
+do
+        host -t ns $hostvar | cut -d " " -f 4
+done
+
+echo "enter a listed name server to attempt zone transfer "
+read -p 'Server or IP address:  ' server
+for INPUT in $server
+do
+        host -l $hostvar $server
+done
+
+echo "enter any other possible subdomain or IP to check"
+read -p 'Subdomain ' subvar
+for INPUT in $subvar
+do
+        host $subvar.$hostvar
+done
+
+echo "enter an IP for OS discovery and port scan with nmap "
+read -p 'IP address ' ip
+for INPUT in $ip
+do
+        nmap -Pn -f -O $ip 
+done
+        echo "finished"
