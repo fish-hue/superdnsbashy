@@ -1,8 +1,11 @@
 #!/bin/bash
 
 #for fun testing
+#wash, rinse, repeat. 
+#check folder for file results
+#utilize whois command against gathered ip's for deeper enumeration
 
-echo "HOST DNS RECON"
+echo "FOR DEEP ENUMERATION"
 read -p 'Hostname ' hostvar
 for INPUT in $hostvar
 do
