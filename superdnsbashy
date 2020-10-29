@@ -6,27 +6,35 @@ echo "HOST DNS RECON"
 read -p 'Hostname ' hostvar
 for INPUT in $hostvar
 do
-        host -t ns $hostvar | cut -d " " -f 4
+        host -t ns $hostvar | cut -d " " -f 4 >> hostname_001.txt | sort -u
 done
 
 echo "enter a listed name server to attempt zone transfer "
 read -p 'Server or IP address:  ' server
 for INPUT in $server
 do
-        host -l $hostvar $server
+        host -l $hostvar $server >> zone_transfer.txt | sort -u
 done
 
 echo "enter any other possible subdomain or IP to check"
 read -p 'Subdomain ' subvar
 for INPUT in $subvar
 do
-        host $subvar.$hostvar
+        host $subvar.$hostvar >> subdomain.txt | sort -u
 done
 
 echo "enter an IP for OS discovery and port scan with nmap "
 read -p 'IP address ' ip
 for INPUT in $ip
 do
-        nmap -Pn -sS -sU -f -O $ip 
+        nmap -A -sS -sU -f -O $ip -oG aggressive.txt
 done
-        echo "finished"
+
+echo 'Domain Lookup with dig '
+read -p 'enter IP: ' request
+for INPUT in $request
+do
+  dig -x $request | grep $request >> domain.txt | sort -u
+done
+  echo 'all scans complete check directory for subrange, agressive scan, and domain information files'
+
